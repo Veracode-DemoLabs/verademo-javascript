@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const speakeasy = require('speakeasy');
-
+// user module
 class User {
     constructor(username, password, dateCreated, lastLogin, blabName,realName) {
         this.username = username;
