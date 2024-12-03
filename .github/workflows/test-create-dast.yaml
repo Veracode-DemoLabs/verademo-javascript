@@ -4,7 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  push-aws-ecr:
+  check-out-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  create-dast-scan:
     runs-on: ubuntu-latest
     container:
       image: veracode/api-signing:latest
