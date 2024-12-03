@@ -10,6 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
   create-dast-scan:
+    needs: check-out-code
     runs-on: ubuntu-latest
     container:
       image: veracode/api-signing:latest
