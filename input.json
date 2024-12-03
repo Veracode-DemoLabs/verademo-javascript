@@ -4,7 +4,7 @@
     {
       "scan_config_request": {
         "target_url": {
-          "url": "https://verademo.vincentdeng.net/"
+          "url": "https://verademo.vincentdeng.net/verademo"
         }
       }
     }
