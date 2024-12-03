@@ -1,0 +1,20 @@
+{
+  "name": "Auto Created DAST Profile 3",
+  "scans": [
+    {
+      "scan_config_request": {
+        "target_url": {
+          "url": "https://verademo.vincentdeng.net/"
+        }
+      }
+    }
+  ],
+  "schedule": {
+    "duration": {
+      "length": 2,
+      "unit": "DAY"
+    },
+    "scheduled": true,
+    "now": true
+  }
+}
