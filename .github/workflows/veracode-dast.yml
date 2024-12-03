@@ -15,3 +15,4 @@ jobs:
           dast_config_file_name: input.json
           owner: Veracode-DemoLabs
           repo: verademo-javascript
+          token: ${{ secrets.GITHUB_TOKEN }}
