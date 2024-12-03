@@ -1,0 +1,14 @@
+name: Veracode DAST
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Submit-DAST-Scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit Veracode DAST Scan
+        uses: veracode-australia/veracode-dast-action@main
+        with:
+          vid: ${{ secret.VERACODE_API_ID }}
+          vkey: ${{ secret.VERACODE_API_KEY }}
