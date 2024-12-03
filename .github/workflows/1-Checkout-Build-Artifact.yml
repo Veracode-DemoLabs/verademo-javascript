@@ -1,0 +1,26 @@
+name: 1-Checkout-Build-Artifact
+
+on:
+  # Enables manual runs
+  workflow_dispatch:
+
+jobs:
+  Checkout-Artifact-Scan:
+    runs-on: [ubuntu-latest]
+    steps:
+      # Checkout
+      - uses: actions/checkout@v4
+
+      # Create application artifact
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: veracode-dast-artifact
+          path: ./**
+
+      # Artifact the Veracode DAST config to use in a following workflow
+      - name: Upload DAST Config for Later Use
+        uses: actions/upload-artifact@v4
+        with:
+          name: Veracode-DAST-Config
+          path: input.json

@@ -1,38 +1,28 @@
-name: Create DAST Scan
+name: 4-Deploy-QA-DAST-Scan
 
 on:
   workflow_dispatch:
 
 jobs:
-  check-out-code:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Upload veracode folder
-        uses: actions/upload-artifact@v4
-        with:
-          name: veracode
-          path: input.json
-
-  create-dast-scan:
-    needs: check-out-code
-    env:
-      VERACODE_API_KEY_ID: "${{ secrets.VERACODE_API_ID }}"
-      VERACODE_API_KEY_SECRET: "${{ secrets.VERACODE_API_KEY }}"
+  Submit-DAST-Scan:
     runs-on: ubuntu-latest
     container:
       image: veracode/api-signing:latest
     steps:
-      - name: Download veracode folder
-        uses: actions/download-artifact@v4
+      - name: Download Checkout-Build-Artifact Workflow Artifact
+        uses: qiwi-forks/action-download-artifact@v2
         with:
-          name: veracode
-      # create-dast-scan:
-      # needs: check-out-code
-      # runs-on: ubuntu-latest
-      - name: Run Veracode API Signing
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: 1-Checkout-Build-Artifact.yml
+          name: Veracode-DAST-Config
+          path: /tmp/
+        continue-on-error: false
+      # Handy during testing to check the file you expect is actually there
+      - name: Confirm DAST config file exists
         run: |
-          ls -lh
-          echo "Using Veracode API Signing Image"
-          http --auth-type=veracode_hmac POST "https://api.veracode.com/was/configservice/v1/analyses" < input.json
+          ls -la /tmp
+      - name: Submit Veracode DAST Scan
+        run: |
+          export VERACODE_API_KEY_ID=${{ secrets.VERACODE_API_ID }}
+          export VERACODE_API_KEY_SECRET=${{ secrets.VERACODE_API_KEY }}
+          http --auth-type=veracode_hmac POST "https://api.veracode.com/was/configservice/v1/analyses" < /tmp/input.json
