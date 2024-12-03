@@ -13,8 +13,6 @@ jobs:
       VERACODE_API_KEY_SECRET: "${{ secrets.VERACODE_API_KEY }}"
 
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
       - name: Run Veracode API Signing
         run: |
           echo "Using Veracode API Signing Image"
