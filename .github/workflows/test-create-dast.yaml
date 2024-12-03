@@ -16,6 +16,7 @@ jobs:
           path: input.json
 
   create-dast-scan:
+    needs: check-out-code
     env:
       VERACODE_API_KEY_ID: "${{ secrets.VERACODE_API_ID }}"
       VERACODE_API_KEY_SECRET: "${{ secrets.VERACODE_API_KEY }}"
