@@ -4,7 +4,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  # check-out-code:
+  check-out-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Upload veracode folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: veracode
+          path: input.json
+
   create-dast-scan:
     env:
       VERACODE_API_KEY_ID: "${{ secrets.VERACODE_API_ID }}"
@@ -13,12 +23,15 @@ jobs:
     container:
       image: veracode/api-signing:latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Download veracode folder
+        uses: actions/download-artifact@v2
+        with:
+          name: veracode
       # create-dast-scan:
       # needs: check-out-code
       # runs-on: ubuntu-latest
       - name: Run Veracode API Signing
         run: |
+          ls -lh
           echo "Using Veracode API Signing Image"
           http --auth-type=veracode_hmac POST "https://api.veracode.com/was/configservice/v1/analyses" < input.json
