@@ -10,5 +10,5 @@ jobs:
       - name: Submit Veracode DAST Scan
         uses: veracode-australia/veracode-dast-action@main
         with:
-          vid: ${{ secret.VERACODE_API_ID }}
-          vkey: ${{ secret.VERACODE_API_KEY }}
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
